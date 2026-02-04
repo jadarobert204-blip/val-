@@ -79,6 +79,11 @@ button {
 
 <body>
 
+<!-- TAP TO START OVERLAY -->
+<div id="startOverlay" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#ffb6c1;display:flex;align-items:center;justify-content:center;z-index:9999;cursor:pointer;">
+    <h1 style="font-size:50px;color:white;text-shadow:2px 2px 10px hotpink;">💖 Tap to Start 💖</h1>
+</div>
+
 <h1>💐 Will you be my girlfriend? 💐</h1>
 
 <button id="yes" onclick="yesClick()">YES 💕</button>
@@ -93,31 +98,29 @@ button {
   <source src="https://actions.google.com/sounds/v1/human_voices/child_disappointed_mm.ogg" type="audio/ogg">
 </audio>
 
-<audio id="bgMusic" loop autoplay>
+<audio id="bgMusic" loop>
   <source src="https://actions.google.com/sounds/v1/ambiences/romantic_piano.ogg" type="audio/ogg">
 </audio>
 
 <script>
 let audioUnlocked = false;
 
-function unlockAudio() {
-    if (audioUnlocked) return;
-
+// UNLOCK AUDIO WHEN TAP OVERLAY
+const overlay = document.getElementById("startOverlay");
+overlay.addEventListener("click", () => {
     const yes = document.getElementById("yesSound");
     const no = document.getElementById("noSound");
     const bg = document.getElementById("bgMusic");
 
-    yes.play().then(()=>{ yes.pause(); yes.currentTime=0 }).catch(()=>{});
-    no.play().then(()=>{ no.pause(); no.currentTime=0 }).catch(()=>{});
-    bg.play().catch(()=>{}); // unlock background music
+    yes.play().then(()=>{ yes.pause(); yes.currentTime=0; });
+    no.play().then(()=>{ no.pause(); no.currentTime=0; });
+    bg.play(); // start background music
 
+    overlay.style.display = "none"; // remove overlay
     audioUnlocked = true;
-}
+});
 
-document.body.addEventListener("click", unlockAudio);
-document.body.addEventListener("touchstart", unlockAudio);
-
-// NO BUTTON FUN
+// NO BUTTON
 let noScale = 1;
 const noBtn = document.getElementById("no");
 noBtn.style.top = "500px";
