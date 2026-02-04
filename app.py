@@ -6,7 +6,7 @@ HTML = """
 <!DOCTYPE html>
 <html>
 <head>
-<title>💖 Will you please be my girlfriend? 💖</title>
+<title>💖 Will youu please be my girlfriend? 💖</title>
 <style>
 body {
     margin: 0;
