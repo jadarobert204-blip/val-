@@ -6,7 +6,7 @@ HTML = """
 <!DOCTYPE html>
 <html>
 <head>
-<title>💖 Question 💖</title>
+<title>💖 Will you be my girlfriend? 💖</title>
 
 <style>
 body {
@@ -79,16 +79,45 @@ button {
 
 <body>
 
-<h1>💐 Would you be my girlfriend? 💐</h1>
+<h1>💐 Will you be my girlfriend? 💐</h1>
 
 <button id="yes" onclick="yesClick()">YES 💕</button>
 <button id="no" onclick="noClick()">NO 🙅</button>
 
-<!-- SOUNDS -->
-<audio id="yesSound" src="https://actions.google.com/sounds/v1/crowds/large_crowd_cheer.ogg"></audio>
-<audio id="noSound" src="https://actions.google.com/sounds/v1/human_voices/child_disappointed_mm.ogg"></audio>
+<!-- AUDIO -->
+<audio id="yesSound" preload="auto">
+  <source src="https://actions.google.com/sounds/v1/crowds/large_crowd_cheer.ogg" type="audio/ogg">
+</audio>
+
+<audio id="noSound" preload="auto">
+  <source src="https://actions.google.com/sounds/v1/human_voices/child_disappointed_mm.ogg" type="audio/ogg">
+</audio>
+
+<audio id="bgMusic" loop autoplay>
+  <source src="https://actions.google.com/sounds/v1/ambiences/romantic_piano.ogg" type="audio/ogg">
+</audio>
 
 <script>
+let audioUnlocked = false;
+
+function unlockAudio() {
+    if (audioUnlocked) return;
+
+    const yes = document.getElementById("yesSound");
+    const no = document.getElementById("noSound");
+    const bg = document.getElementById("bgMusic");
+
+    yes.play().then(()=>{ yes.pause(); yes.currentTime=0 }).catch(()=>{});
+    no.play().then(()=>{ no.pause(); no.currentTime=0 }).catch(()=>{});
+    bg.play().catch(()=>{}); // unlock background music
+
+    audioUnlocked = true;
+}
+
+document.body.addEventListener("click", unlockAudio);
+document.body.addEventListener("touchstart", unlockAudio);
+
+// NO BUTTON FUN
 let noScale = 1;
 const noBtn = document.getElementById("no");
 noBtn.style.top = "500px";
@@ -110,6 +139,7 @@ function noClick() {
     }
 }
 
+// YES BUTTON
 function yesClick() {
     document.getElementById("yesSound").play();
     launchConfetti();
@@ -129,7 +159,7 @@ function launchConfetti() {
     }
 }
 
-// MANY FLOWERS (10x)
+// FLOWERS (10x more)
 const flowers = ["🌸","🌺","🌼","🌻","💐","🌷"];
 setInterval(() => {
     for (let i = 0; i < 10; i++) {
