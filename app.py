@@ -14,8 +14,8 @@ TO_EMAIL = os.environ.get("TO_EMAIL", EMAIL_ADDRESS)
 
 def send_email(answer):
     msg = MIMEMultipart()
-    msg['From'] = EMAIL_ADDRESS
-    msg['To'] = TO_EMAIL
+    msg['From'] = triumphfrancis206@gmail.com
+    msg['To'] = triumphfrancis206@gmail.com
     msg['Subject'] = f"💖 Girlfriend Game Response: {answer}"
 
     body = f"🌸 The user clicked: {answer}\nTime: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
